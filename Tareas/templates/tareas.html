@@ -1,0 +1,33 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-md-8 mx-auto">
+      <h3>Tareas Pendientes</h3>
+      <div class="list-group mb-4">
+        {% for tarea in tareas %}
+          {% if not tarea.estado %}
+            <a href="{% url 'detalleTarea' tarea.id %}" class="list-group-item list-group-item-action">
+              {{ tarea }}
+            </a>
+          {% endif %}
+        {% empty %}
+          <div class="text-muted">No hay tareas</div>
+        {% endfor %}
+      </div>
+
+      <h3>Tareas Completadas</h3>
+      <div class="list-group">
+        {% for tarea in tareas %}
+          {% if tarea.estado %}
+            <a href="{% url 'detalleTarea' tarea.id %}" class="list-group-item list-group-item-action list-group-item-success">
+              {{ tarea }}
+            </a>
+          {% endif %}
+        {% empty %}
+          <div class="text-muted">No hay tareas completadas</div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
